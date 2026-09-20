@@ -1,23 +1,35 @@
-$repoPath = $PSScriptRoot
-Set-Location -Path $repoPath
+param(
+    [int]$IntervalSeconds = 60
+)
 
-Write-Host "AutoSync started in $repoPath" -ForegroundColor Green
-Write-Host "Checking for changes every 60 seconds. Press Ctrl+C to stop." -ForegroundColor Yellow
+Write-Host "==========================================" -ForegroundColor Cyan
+Write-Host " Starting Auto-Sync for CyberOXO" -ForegroundColor Green
+Write-Host " Syncing every $IntervalSeconds seconds." -ForegroundColor Yellow
+Write-Host " Keep this window open to continue syncing." -ForegroundColor Yellow
+Write-Host " Press Ctrl+C to stop." -ForegroundColor Red
+Write-Host "==========================================" -ForegroundColor Cyan
+Write-Host ""
 
 while ($true) {
-    # Check if there are changes
+    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
+    Write-Host "[$timestamp] Checking for updates..." -ForegroundColor Gray
+    
+    # Fetch and pull changes from GitHub (auto update local)
+    git pull origin main --rebase
+    
+    # Check if there are local changes
     $status = git status --porcelain
     if ($status) {
-        Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Changes detected. Syncing..." -ForegroundColor Cyan
+        Write-Host "[$timestamp] Local changes detected. Syncing to GitHub..." -ForegroundColor Yellow
         git add .
-        $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-        git commit -m "Auto sync: $date"
+        git commit -m "Auto sync from local on $timestamp"
         git push origin main
-        Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Sync complete." -ForegroundColor Green
-    } else {
-        Write-Host "[$(Get-Date -Format 'HH:mm:ss')] No changes detected." -ForegroundColor DarkGray
+        Write-Host "[$timestamp] Successfully synced to GitHub." -ForegroundColor Green
+    }
+    else {
+        # Optional: uncomment the next line to see a message when there are no changes
+        # Write-Host "[$timestamp] No local changes to push." -ForegroundColor DarkGray
     }
     
-    # Wait for 60 seconds
-    Start-Sleep -Seconds 60
+    Start-Sleep -Seconds $IntervalSeconds
 }
