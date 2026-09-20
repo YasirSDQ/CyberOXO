@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Board Size Selector Bottom Sheet -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_glass"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvBoardSizeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="📐 SELECT BOARD SIZE"
+        android:textColor="@color/colorOnSurface"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        android:letterSpacing="0.1"
+        android:layout_gravity="center_horizontal"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/colorOutlineVariant"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- 3x3 Option -->
+    <TextView
+        android:id="@+id/size_3"
+        android:tag="size_3"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="3 × 3  —  Classic"
+        android:textColor="@color/colorOnSurface"
+        android:textSize="15sp"
+        android:fontFamily="monospace"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <!-- 4x4 Option -->
+    <TextView
+        android:id="@+id/size_4"
+        android:tag="size_4"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="4 × 4  —  Extended"
+        android:textColor="@color/colorOnSurface"
+        android:textSize="15sp"
+        android:fontFamily="monospace"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <!-- 5x5 Option -->
+    <TextView
+        android:id="@+id/size_5"
+        android:tag="size_5"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="5 × 5  —  Master"
+        android:textColor="@color/colorOnSurface"
+        android:textSize="15sp"
+        android:fontFamily="monospace"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"/>
+
+</LinearLayout>
