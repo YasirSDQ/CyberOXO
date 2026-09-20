@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base bottom padding for the action bar (nav bar inset is added on top in code) -->
+    <dimen name="bottom_bar_padding_bottom">20dp</dimen>
+</resources>

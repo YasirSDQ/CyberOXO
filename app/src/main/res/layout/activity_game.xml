@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <!-- Subtle radial glow -->
+    <View
+        android:layout_width="800dp"
+        android:layout_height="800dp"
+        android:background="@drawable/bg_app_gradient"
+        android:alpha="0.1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- ====== APP LOGO HEADER ====== -->
+    <ImageView
+        android:id="@+id/ivHeaderLogo"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:src="@drawable/header_logo"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:contentDescription="CyberOXO Logo"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ====== SCOREBOARD ====== -->
+    <LinearLayout
+        android:id="@+id/llScoreboard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        app:layout_constraintTop_toBottomOf="@id/ivHeaderLogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp">
+
+        <!-- Player X Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardPlayerX"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/llPlayerX"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_player_card_active_x"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+
+                <TextView
+                    android:id="@+id/tvMarkX"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="X"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace" />
+
+                <TextView
+                    android:id="@+id/tvPlayer1Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/player_1"
+                    android:textColor="@color/colorOnSurfaceVariant"
+                    android:textSize="10sp"
+                    android:fontFamily="monospace"
+                    android:letterSpacing="0.15"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:id="@+id/tvScoreX"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00"
+                    android:textColor="@color/colorOnSurface"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace"
+                    android:layout_marginTop="6dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Turn indicator (center) -->
+        <LinearLayout
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/turn_label"
+                android:textColor="@color/colorOutline"
+                android:textSize="9sp"
+                android:fontFamily="monospace"
+                android:letterSpacing="0.2"
+                android:layout_marginBottom="8dp" />
+
+            <ImageView
+                android:id="@+id/ivTurnArrow"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/arrow_down_float"
+                android:tint="@color/colorPrimary"
+                android:background="@drawable/bg_turn_indicator"
+                android:padding="6dp"
+                android:scaleX="-1" />
+        </LinearLayout>
+
+        <!-- Player O Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardPlayerO"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/llPlayerO"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_glass_panel"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:alpha="0.4">
+
+                <TextView
+                    android:id="@+id/tvMarkO"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="O"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace" />
+
+                <TextView
+                    android:id="@+id/tvPlayer2Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/player_2"
+                    android:textColor="@color/colorOnSurfaceVariant"
+                    android:textSize="10sp"
+                    android:fontFamily="monospace"
+                    android:letterSpacing="0.15"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:id="@+id/tvScoreO"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00"
+                    android:textColor="@color/colorOnSurface"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace"
+                    android:layout_marginTop="6dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <!-- Difficulty level label (shown only in VS BOT mode) -->
+    <TextView
+        android:id="@+id/tvDifficultyLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/colorCyberGreen"
+        android:textSize="11sp"
+        android:letterSpacing="0.2"
+        android:fontFamily="monospace"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/llScoreboard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
+
+    <!-- ====== GAME BOARD 3×3 ====== -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/boardAnchor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tvDifficultyLabel"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/gameBoard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:padding="16dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.92"
+            app:layout_constraintHeight_default="spread">
+
+            <!-- Row 0 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <FrameLayout android:id="@+id/cell0" style="@style/GameCell"
+                    android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <TextView android:id="@+id/mark0" style="@style/MarkText" />
+                </FrameLayout>
+                <FrameLayout android:id="@+id/cell1" style="@style/GameCell"
+                    android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <TextView android:id="@+id/mark1" style="@style/MarkText" />
+                </FrameLayout>
+                <FrameLayout android:id="@+id/cell2" style="@style/GameCell"
+                    android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <TextView android:id="@+id/mark2" style="@style/MarkText" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- Row 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <FrameLayout android:id="@+id/cell3" style="@style/GameCell"
+                    android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <TextView android:id="@+id/mark3" style="@style/MarkText" />
+                </FrameLayout>
+                <FrameLayout android:id="@+id/cell4" style="@style/GameCell"
+                    android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <TextView android:id="@+id/mark4" style="@style/MarkText" />
+                </FrameLayout>
+                <FrameLayout android:id="@+id/cell5" style="@style/GameCell"
+                    android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <TextView android:id="@+id/mark5" style="@style/MarkText" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- Row 2 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <FrameLayout android:id="@+id/cell6" style="@style/GameCell"
+                    android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <TextView android:id="@+id/mark6" style="@style/MarkText" />
+                </FrameLayout>
+                <FrameLayout android:id="@+id/cell7" style="@style/GameCell"
+                    android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <TextView android:id="@+id/mark7" style="@style/MarkText" />
+                </FrameLayout>
+                <FrameLayout android:id="@+id/cell8" style="@style/GameCell"
+                    android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <TextView android:id="@+id/mark8" style="@style/MarkText" />
+                </FrameLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ====== BOTTOM ACTION BAR ====== -->
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/colorActionBar"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="24dp"
+        android:elevation="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:text="@string/home"
+            android:textColor="@color/colorOnSurface"
+            android:textSize="13sp"
+            android:letterSpacing="0.2"
+            android:fontFamily="monospace"
+            android:background="@drawable/bg_pill_button"
+            android:drawableStart="@android:drawable/ic_menu_revert"
+            android:drawableTint="@color/colorOnSurface"
+            android:drawablePadding="8dp"
+            android:stateListAnimator="@null"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginEnd="16dp" />
+
+        <Button
+            android:id="@+id/btnRestart"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:text="@string/restart"
+            android:textColor="@color/colorOnSurface"
+            android:textSize="13sp"
+            android:letterSpacing="0.2"
+            android:fontFamily="monospace"
+            android:background="@drawable/bg_pill_button"
+            android:drawableStart="@android:drawable/ic_menu_rotate"
+            android:drawableTint="@color/colorOnSurface"
+            android:drawablePadding="8dp"
+            android:stateListAnimator="@null"
+            android:insetTop="0dp"
+            android:insetBottom="0dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

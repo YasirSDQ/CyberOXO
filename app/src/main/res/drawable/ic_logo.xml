@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- OxoNeo logo mark: combined X+O vector -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="72dp"
+    android:height="72dp"
+    android:viewportWidth="72"
+    android:viewportHeight="72">
+
+    <!-- O ring (outer circle - inner circle) -->
+    <path
+        android:fillColor="#FF007F"
+        android:pathData="M36,4
+            C55.882,4 72,20.118 72,40
+            C72,59.882 55.882,76 36,76
+            C16.118,76 0,59.882 0,40
+            C0,20.118 16.118,4 36,4 Z
+            M36,16
+            C22.745,16 12,26.745 12,40
+            C12,53.255 22.745,64 36,64
+            C49.255,64 60,53.255 60,40
+            C60,26.745 49.255,16 36,16 Z" />
+
+    <!-- X stroke 1: top-left to bottom-right -->
+    <path
+        android:strokeColor="#00F0FF"
+        android:strokeWidth="7"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M22,26 L50,54" />
+
+    <!-- X stroke 2: top-right to bottom-left -->
+    <path
+        android:strokeColor="#00F0FF"
+        android:strokeWidth="7"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M50,26 L22,54" />
+</vector>

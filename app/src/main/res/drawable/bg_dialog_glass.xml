@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Result dialog: deep dark fill + neon purple/cyan border + top shimmer -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Dark base -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="14dp" />
+            <gradient
+                android:angle="135"
+                android:startColor="#F2030A14"
+                android:endColor="#F2010609"
+                android:type="linear" />
+        </shape>
+    </item>
+    <!-- Neon purple border -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="14dp" />
+            <stroke android:width="1.5dp" android:color="#667B2FFF" />
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+    <!-- Top-edge shimmer highlight -->
+    <item android:gravity="top" android:height="18dp">
+        <shape android:shape="rectangle">
+            <corners
+                android:topLeftRadius="14dp"
+                android:topRightRadius="14dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
+            <gradient
+                android:angle="270"
+                android:startColor="#18FFFFFF"
+                android:endColor="#00FFFFFF"
+                android:type="linear" />
+        </shape>
+    </item>
+</layer-list>

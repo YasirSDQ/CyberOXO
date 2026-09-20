@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Active O player card: neon cyan border + gradient fill -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="12dp" />
+            <gradient
+                android:angle="135"
+                android:startColor="#4000F5FF"
+                android:endColor="#1A00F5FF"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="12dp" />
+            <stroke android:width="2dp" android:color="#CC00F5FF" />
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</layer-list>

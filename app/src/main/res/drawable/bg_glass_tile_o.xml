@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- O-occupied tile: electric cyan gradient + bright neon border -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <gradient
+                android:angle="135"
+                android:startColor="#4800F5FF"
+                android:endColor="#28005C63"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <stroke android:width="2dp" android:color="#AA00F5FF" />
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</layer-list>

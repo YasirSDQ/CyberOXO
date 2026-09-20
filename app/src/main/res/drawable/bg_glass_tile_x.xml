@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- X-occupied tile: hot pink gradient + bright neon border -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <gradient
+                android:angle="135"
+                android:startColor="#48FF2D55"
+                android:endColor="#28CC0033"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <stroke android:width="2dp" android:color="#AAFF2D55" />
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</layer-list>

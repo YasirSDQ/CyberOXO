@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    MODE SELECTION – "Arena Stack" Layout
+    ──────────────────────────────────────
+    Structure (top → bottom):
+      1. Ambient glow layers (positioned absolutely behind everything)
+      2. Logo  +  small "SELECT MODE" label
+      3. BOT tile   (upper ~44% of remaining space)  ← full width, left accent bar, numbered
+      4. Floating VS badge  (centred on the gap between tiles)
+      5. FRIEND tile (lower ~44% of remaining space) ← full width, left accent bar, numbered
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <!-- ── Ambient cyan glow (top-left) ── -->
+    <View
+        android:id="@+id/glowCyan"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:background="@drawable/bg_app_gradient"
+        android:alpha="0.22"
+        android:layout_marginTop="-80dp"
+        android:layout_marginStart="-80dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- ── Ambient pink glow (bottom-right) ── -->
+    <View
+        android:id="@+id/glowPink"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:background="@drawable/bg_cyber_card_pink"
+        android:alpha="0.12"
+        android:layout_marginBottom="-60dp"
+        android:layout_marginEnd="-60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ══════════════════════════════════════
+         HEADER  –  Logo + label
+    ══════════════════════════════════════ -->
+
+    <ImageView
+        android:id="@+id/ivLogoLarge"
+        android:layout_width="190dp"
+        android:layout_height="52dp"
+        android:src="@drawable/header_logo"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/cd_logo"
+        android:layout_marginTop="52dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Tiny "SELECT MODE" eyebrow label -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="— SELECT MODE —"
+        android:textColor="@color/colorOnSurfaceVariant"
+        android:textSize="10sp"
+        android:letterSpacing="0.3"
+        android:fontFamily="monospace"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/ivLogoLarge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Hidden subtitle kept for binding compatibility only -->
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:text="Choose your combat mode to begin"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Horizontal mid-guideline (separates the two tile zones) -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.525" />
+
+    <!-- ══════════════════════════════════════
+         BOT MODE TILE  (upper half)
+         Full-width panel · cyan accent
+    ══════════════════════════════════════ -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardVsBot"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_mode_tile_bot"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="7dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintBottom_toTopOf="@id/guidelineMid"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- ── Left cyan accent bar ── -->
+        <View
+            android:id="@+id/accentBot"
+            android:layout_width="4dp"
+            android:layout_height="0dp"
+            android:background="@color/colorSecondary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- ── Mode number (top-right) ── -->
+        <TextView
+            android:id="@+id/tvBotNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="01"
+            android:textColor="@color/colorSecondary"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.2"
+            android:fontFamily="monospace"
+            android:alpha="0.55"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="18dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- ── Large emoji icon (left zone) ── -->
+        <TextView
+            android:id="@+id/iconBot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🤖"
+            android:textSize="54sp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnStartBot"
+            app:layout_constraintStart_toEndOf="@id/accentBot"
+            app:layout_constraintVertical_bias="0.38" />
+
+        <!-- ── Mode title ── -->
+        <TextView
+            android:id="@+id/tvBotTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="VS BOT"
+            android:textColor="@color/colorSecondary"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"
+            android:fontFamily="monospace"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            app:layout_constraintTop_toTopOf="@id/iconBot"
+            app:layout_constraintStart_toEndOf="@id/iconBot"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- ── Thin cyan underline accent under title ── -->
+        <View
+            android:id="@+id/titleUnderlineBot"
+            android:layout_width="0dp"
+            android:layout_height="1.5dp"
+            android:background="@color/colorSecondary"
+            android:alpha="0.35"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tvBotTitle"
+            app:layout_constraintStart_toEndOf="@id/iconBot"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- ── Description ── -->
+        <TextView
+            android:id="@+id/tvBotDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Challenge the AI. Adaptive difficulty\nscales with your skill in real time."
+            android:textColor="@color/colorOnSurfaceVariant"
+            android:textSize="11sp"
+            android:lineSpacingMultiplier="1.45"
+            android:fontFamily="monospace"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/titleUnderlineBot"
+            app:layout_constraintStart_toEndOf="@id/iconBot"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- ── ENGAGE button ── -->
+        <Button
+            android:id="@+id/btnStartBot"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:text="ENGAGE  ›"
+            android:textColor="@color/colorSecondary"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:letterSpacing="0.12"
+            android:fontFamily="monospace"
+            android:background="@drawable/bg_start_button_bot"
+            android:stateListAnimator="@null"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ══════════════════════════════════════
+         FRIEND MODE TILE  (lower half)
+         Full-width panel · pink accent
+    ══════════════════════════════════════ -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardVsFriend"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_mode_tile_friend"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="28dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/guidelineMid"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- ── Left pink accent bar ── -->
+        <View
+            android:id="@+id/accentFriend"
+            android:layout_width="4dp"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- ── Mode number (top-right) ── -->
+        <TextView
+            android:id="@+id/tvFriendNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="02"
+            android:textColor="@color/colorPrimary"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.2"
+            android:fontFamily="monospace"
+            android:alpha="0.55"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="18dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- ── Large emoji icon (left zone) ── -->
+        <TextView
+            android:id="@+id/iconFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="👥"
+            android:textSize="54sp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnStartFriend"
+            app:layout_constraintStart_toEndOf="@id/accentFriend"
+            app:layout_constraintVertical_bias="0.38" />
+
+        <!-- ── Mode title ── -->
+        <TextView
+            android:id="@+id/tvFriendTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="VS FRIEND"
+            android:textColor="@color/colorPrimary"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"
+            android:fontFamily="monospace"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            app:layout_constraintTop_toTopOf="@id/iconFriend"
+            app:layout_constraintStart_toEndOf="@id/iconFriend"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- ── Thin pink underline accent under title ── -->
+        <View
+            android:id="@+id/titleUnderlineFriend"
+            android:layout_width="0dp"
+            android:layout_height="1.5dp"
+            android:background="@color/colorPrimary"
+            android:alpha="0.35"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tvFriendTitle"
+            app:layout_constraintStart_toEndOf="@id/iconFriend"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- ── Description ── -->
+        <TextView
+            android:id="@+id/tvFriendDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Local multiplayer. Pass and play\non the same device with a friend."
+            android:textColor="@color/colorOnSurfaceVariant"
+            android:textSize="11sp"
+            android:lineSpacingMultiplier="1.45"
+            android:fontFamily="monospace"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/titleUnderlineFriend"
+            app:layout_constraintStart_toEndOf="@id/iconFriend"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- ── ENGAGE button ── -->
+        <Button
+            android:id="@+id/btnStartFriend"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:text="ENGAGE  ›"
+            android:textColor="@color/colorPrimary"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:letterSpacing="0.12"
+            android:fontFamily="monospace"
+            android:background="@drawable/bg_start_button_friend"
+            android:stateListAnimator="@null"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ══════════════════════════════════════
+         Floating VS badge (centred on the gap)
+    ══════════════════════════════════════ -->
+    <TextView
+        android:id="@+id/tvVsDivider"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="VS"
+        android:textColor="@color/colorOnSurface"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.08"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:background="@drawable/bg_vs_badge"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="@id/guidelineMid"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineMid"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ═══════ CYBER COLOUR PALETTE ═══════ -->
+    <!-- Background – near-pure black with faint blue-teal undertone -->
+    <color name="colorBackground">#020509</color>
+    <color name="colorSurface">#020509</color>
+    <color name="colorSurfaceDim">#020509</color>
+    <color name="colorSurfaceBright">#0B1120</color>
+    <color name="colorSurfaceContainerLowest">#010307</color>
+    <color name="colorSurfaceContainerLow">#060A12</color>
+    <color name="colorSurfaceContainer">#0C121C</color>
+    <color name="colorSurfaceContainerHigh">#141E2C</color>
+    <color name="colorSurfaceContainerHighest">#1E2D40</color>
+    <color name="colorSurfaceVariant">#1E2D40</color>
+
+    <!-- Primary – Neon Pink / Magenta (X marks) -->
+    <color name="colorPrimary">#FF2D55</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorPrimaryContainer">#800020</color>
+    <color name="colorOnPrimaryContainer">#FFB3C4</color>
+    <color name="colorPrimaryFixed">#FF6B84</color>
+    <color name="colorPrimaryFixedDim">#FF2D55</color>
+    <color name="colorInversePrimary">#CC0033</color>
+
+    <!-- Secondary – Electric Cyan (O marks) -->
+    <color name="colorSecondary">#00F5FF</color>
+    <color name="colorOnSecondary">#000000</color>
+    <color name="colorSecondaryContainer">#005C63</color>
+    <color name="colorOnSecondaryContainer">#99FAFF</color>
+    <color name="colorSecondaryFixed">#4DFAFF</color>
+    <color name="colorSecondaryFixedDim">#00F5FF</color>
+
+    <!-- Tertiary – Cyber Purple (accent) -->
+    <color name="colorTertiary">#7B2FFF</color>
+    <color name="colorOnTertiary">#FFFFFF</color>
+    <color name="colorTertiaryContainer">#3D0080</color>
+
+    <!-- Cyber Green (matrix / hack accent) -->
+    <color name="colorCyberGreen">#00FF41</color>
+    <color name="colorCyberGreenDim">#00AA2A</color>
+
+    <!-- Neutral -->
+    <color name="colorOnSurface">#D8E8F5</color>
+    <color name="colorOnSurfaceVariant">#7090A8</color>
+    <color name="colorOutline">#445A6A</color>
+    <color name="colorOutlineVariant">#1E2E3C</color>
+    <color name="colorInverseSurface">#D8E8F5</color>
+    <color name="colorInverseOnSurface">#101820</color>
+
+    <!-- Error -->
+    <color name="colorError">#FF3B3B</color>
+    <color name="colorOnError">#FFFFFF</color>
+    <color name="colorErrorContainer">#660000</color>
+
+    <!-- Semi-transparent variants for glassmorphism -->
+    <color name="colorGlassPanel">#D2020509</color>
+    <color name="colorGlassTile">#52141E2C</color>
+    <color name="colorGlassTileX">#38FF2D55</color>
+    <color name="colorGlassTileO">#3800F5FF</color>
+    <color name="colorGlassBorder">#22FFFFFF</color>
+    <color name="colorActionBar">#F2020509</color>
+
+    <!-- Legacy compat names -->
+    <color name="purple_500">#FF2D55</color>
+    <color name="purple_700">#CC0033</color>
+    <color name="teal_200">#00F5FF</color>
+    <color name="teal_700">#005C63</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

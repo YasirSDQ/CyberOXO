@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CyberOXO</string>
+    <string name="subtitle">TIC-TAC-TOE PROTOCOL</string>
+    <string name="loading">LOADING…</string>
+
+    <!-- Mode Selection -->
+    <string name="choose_opponent">SELECT PROTOCOL</string>
+    <string name="select_mode_subtitle">Choose your combat mode to begin</string>
+    <string name="vs_bot">Neural Combat</string>
+    <string name="vs_bot_desc">Challenge the AI opponent. The bot adapts to your skill level in real time.</string>
+    <string name="vs_friend">Dual Combat</string>
+    <string name="vs_friend_desc">Local multiplayer. Pass and play on the same device with a friend.</string>
+    <string name="select_difficulty">SELECT DIFFICULTY</string>
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_medium">Med</string>
+    <string name="difficulty_impossible">Imp</string>
+    <string name="start_match">▶  ENGAGE PLAYER</string>
+    <string name="play_vs_bot">▶  ENGAGE AI</string>
+    <string name="adaptive_hint">[ ADAPTIVE DIFFICULTY ]</string>
+
+    <!-- Game Screen -->
+    <string name="player_1">PLAYER·1</string>
+    <string name="player_2">PLAYER·2</string>
+    <string name="player_bot">A.I.</string>
+    <string name="turn_label">TURN</string>
+    <string name="restart">RESTART</string>
+    <string name="quit">QUIT</string>
+    <string name="home">HOME</string>
+    <string name="difficulty_label_medium">[ BOT: MEDIUM ]</string>
+    <string name="difficulty_label_impossible">[ BOT: IMPOSSIBLE ]</string>
+    <string name="difficulty_label_easy">[ BOT: EASY ]</string>
+
+    <!-- Result Dialog -->
+    <string name="result_winner">%1$s WINS!</string>
+    <string name="result_draw">DRAW DETECTED</string>
+    <string name="result_draw_sub">A perfectly balanced engagement.</string>
+    <string name="play_again">▶  PLAY AGAIN</string>
+    <string name="exit_game">EXIT GAME</string>
+
+    <!-- Content descriptions -->
+    <string name="cd_logo">CyberOXO logo</string>
+    <string name="cd_settings">Settings</string>
+    <string name="cd_home">Home</string>
+    <string name="cd_cell">Game cell %1$d</string>
+</resources>
