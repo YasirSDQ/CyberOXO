@@ -1,5 +1,5 @@
 @echo off
-title Gridly-Desktop Auto-Sync
-echo Starting Auto-Sync Script...
-powershell -ExecutionPolicy Bypass -File "%~dp0autosync.ps1"
+title AutoSync
+echo Starting AutoSync...
+PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '%~dp0autosync.ps1'"
 pause

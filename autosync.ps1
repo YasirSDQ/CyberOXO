@@ -1,34 +1,23 @@
-param(
-    [int]$IntervalSeconds = 60
-)
+$repoPath = $PSScriptRoot
+Set-Location -Path $repoPath
 
-Write-Host "==========================================" -ForegroundColor Cyan
-Write-Host " Starting Auto-Sync for Gridly-Desktop" -ForegroundColor Green
-Write-Host " Syncing every $IntervalSeconds seconds." -ForegroundColor Yellow
-Write-Host " Keep this window open to continue syncing." -ForegroundColor Yellow
-Write-Host " Press Ctrl+C to stop." -ForegroundColor Red
-Write-Host "==========================================" -ForegroundColor Cyan
-Write-Host ""
+Write-Host "AutoSync started in $repoPath" -ForegroundColor Green
+Write-Host "Checking for changes every 60 seconds. Press Ctrl+C to stop." -ForegroundColor Yellow
 
 while ($true) {
-    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
-    Write-Host "[$timestamp] Checking for updates..." -ForegroundColor Gray
-    
-    # Fetch and pull changes from GitHub (auto update local)
-    git pull origin main --rebase
-    
-    # Check if there are local changes
+    # Check if there are changes
     $status = git status --porcelain
     if ($status) {
-        Write-Host "[$timestamp] Local changes detected. Syncing to GitHub..." -ForegroundColor Yellow
+        Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Changes detected. Syncing..." -ForegroundColor Cyan
         git add .
-        git commit -m "Auto sync from local on $timestamp"
+        $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+        git commit -m "Auto sync: $date"
         git push origin main
-        Write-Host "[$timestamp] Successfully synced to GitHub." -ForegroundColor Green
+        Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Sync complete." -ForegroundColor Green
     } else {
-        # Optional: uncomment the next line to see a message when there are no changes
-        # Write-Host "[$timestamp] No local changes to push." -ForegroundColor DarkGray
+        Write-Host "[$(Get-Date -Format 'HH:mm:ss')] No changes detected." -ForegroundColor DarkGray
     }
     
-    Start-Sleep -Seconds $IntervalSeconds
+    # Wait for 60 seconds
+    Start-Sleep -Seconds 60
 }
