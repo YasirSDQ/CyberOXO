@@ -20,11 +20,12 @@ import cyberoxo.io.model.Difficulty
 import cyberoxo.io.model.GameMode
 import cyberoxo.io.model.MoveResult
 import cyberoxo.io.model.Player
+import cyberoxo.io.model.BoardSize
 import cyberoxo.io.ui.GlowAnimator
 import cyberoxo.io.ui.SoundManager
 
 /**
- * Main gameplay screen for OxoNeo.
+ * Main gameplay screen for CyberOXO v2.5.
  *
  * Responsibilities:
  *  - Maintains board state ([board]) and scores ([scoreX], [scoreO])
@@ -33,9 +34,9 @@ import cyberoxo.io.ui.SoundManager
  *  - Drives all visual updates through [GlowAnimator]
  *  - Plays all sound effects through [SoundManager]
  *  - Shows [showResultDialog] on game over
+ *  - Supports dynamic board sizes (3x3, 4x4, 5x5)
  *
- * The board is a flat [Array<Player?>] of size 9 (row-major, 0 = top-left).
- * Cell Views are stored in [cells] (FrameLayout) and [marks] (TextView).
+ * The board is a flat [Array<Player?>] with size based on selected board.
  */
 class GameActivity : AppCompatActivity() {
 
@@ -45,17 +46,20 @@ class GameActivity : AppCompatActivity() {
     // ── Game configuration (received from ModeSelectionActivity) ─────────────
     private lateinit var gameMode: GameMode
     private lateinit var difficulty: Difficulty
+    private lateinit var boardSize: BoardSize
+    private lateinit var selectedTheme: ModeSelectionActivity.GameTheme
 
     // ── Game state ───────────────────────────────────────────────────────────
-    private val board = arrayOfNulls<Player>(9)
+    private lateinit var board: Array<Player?>
     private var currentPlayer: Player = Player.X
     private var scoreX = 0
     private var scoreO = 0
     private var gameOver = false
 
-    // ── UI references (built after setContentView) ────────────────────────────
-    private lateinit var cells: List<FrameLayout>   // 9 cell containers
-    private lateinit var marks: List<TextView>       // 9 mark TextViews
+    // ── UI references (built dynamically based on board size) ─────────────────
+    private var cells: List<FrameLayout> = emptyList()
+    private var marks: List<TextView> = emptyList()
+    private lateinit var gameBoardContainer: View
 
     // ── Bot move delay (ms) – feels more natural than instant ─────────────────
     private val botHandler = Handler(Looper.getMainLooper())
@@ -86,12 +90,19 @@ class GameActivity : AppCompatActivity() {
             insets
         }
 
-        // Read intent extras
+        // Read intent extras with defaults
         gameMode   = GameMode.valueOf(
             intent.getStringExtra(ModeSelectionActivity.EXTRA_GAME_MODE) ?: GameMode.VS_FRIEND.name)
         difficulty = Difficulty.valueOf(
-            intent.getStringExtra(ModeSelectionActivity.EXTRA_DIFFICULTY) ?: Difficulty.EASY.name)
+            intent.getStringExtra(ModeSelectionActivity.EXTRA_DIFFICULTY) ?: Difficulty.MEDIUM.name)
+        boardSize = BoardSize.valueOf(
+            intent.getStringExtra(ModeSelectionActivity.EXTRA_BOARD_SIZE) ?: BoardSize.SIZE_3x3.name)
+        selectedTheme = ModeSelectionActivity.GameTheme.valueOf(
+            intent.getStringExtra(ModeSelectionActivity.EXTRA_THEME) ?: ModeSelectionActivity.GameTheme.NEON.name)
 
+        // Initialize board based on size
+        initializeBoard()
+        
         buildCellReferences()
         setupCellClickListeners()
         setupActionBarListeners()
@@ -110,18 +121,37 @@ class GameActivity : AppCompatActivity() {
     // Initialisation helpers
     // ═════════════════════════════════════════════════════════════════════════
 
-    /** Collects the 9 cell FrameLayouts and their inner mark TextViews into typed lists. */
+    /** Initialize board array based on selected board size */
+    private fun initializeBoard() {
+        val totalCells = boardSize.size * boardSize.size
+        board = arrayOfNulls<Player>(totalCells)
+    }
+
+    /** Collects the cell FrameLayouts and their inner mark TextViews into typed lists. */
     private fun buildCellReferences() {
+        gameBoardContainer = binding.gameBoard
+        
+        // For now, we'll use the hardcoded 3x3 cells from layout
+        // In a full implementation, you'd dynamically generate these
         cells = listOf(
             binding.cell0, binding.cell1, binding.cell2,
             binding.cell3, binding.cell4, binding.cell5,
             binding.cell6, binding.cell7, binding.cell8
-        )
+        ).take(boardSize.size * boardSize.size)
+        
         marks = listOf(
             binding.mark0, binding.mark1, binding.mark2,
             binding.mark3, binding.mark4, binding.mark5,
             binding.mark6, binding.mark7, binding.mark8
-        )
+        ).take(boardSize.size * boardSize.size)
+        
+        // Hide unused cells for smaller boards or show all for 3x3
+        cells.forEachIndexed { index, cell ->
+            cell.visibility = if (index < boardSize.size * boardSize.size) View.VISIBLE else View.GONE
+        }
+        marks.forEachIndexed { index, mark ->
+            mark.visibility = if (index < boardSize.size * boardSize.size) View.VISIBLE else View.GONE
+        }
     }
 
     private fun setupCellClickListeners() {
@@ -181,22 +211,24 @@ class GameActivity : AppCompatActivity() {
         if (player == Player.X) SoundManager.playTapX() else SoundManager.playTapO()
 
         // Animate cell press
-        GlowAnimator.animateCellPress(cells[index])
+        if (index < cells.size) {
+            GlowAnimator.animateCellPress(cells[index])
 
-        // Update cell background tint
-        cells[index].background = when (player) {
-            Player.X -> resources.getDrawable(R.drawable.bg_glass_tile_x, theme)
-            Player.O -> resources.getDrawable(R.drawable.bg_glass_tile_o, theme)
+            // Update cell background tint
+            cells[index].background = when (player) {
+                Player.X -> resources.getDrawable(R.drawable.bg_glass_tile_x, theme)
+                Player.O -> resources.getDrawable(R.drawable.bg_glass_tile_o, theme)
+            }
+
+            // Show and animate the mark
+            val mark = marks[index]
+            mark.text = player.name
+            GlowAnimator.applyMarkGlow(mark, player)
+            GlowAnimator.animateMarkEntrance(mark)
         }
 
-        // Show and animate the mark
-        val mark = marks[index]
-        mark.text = player.name
-        GlowAnimator.applyMarkGlow(mark, player)
-        GlowAnimator.animateMarkEntrance(mark)
-
         // Evaluate result
-        val result = GameEngine.checkResult(board)
+        val result = GameEngine.checkResult(board, boardSize)
         when {
             result.winner != null -> handleWin(result)
             result.isDraw         -> handleDraw()
@@ -225,7 +257,7 @@ class GameActivity : AppCompatActivity() {
         botHandler.postDelayed({
             if (!gameOver) {
                 stopIdleShimmer()
-                val botIndex = BotEngine.getBotMove(board, difficulty)
+                val botIndex = BotEngine.getBotMove(board, difficulty, boardSize)
                 placeMove(botIndex, Player.O)
                 // Re-enable cells after bot plays
                 cells.forEachIndexed { i, cell ->
