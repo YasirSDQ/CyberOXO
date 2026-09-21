@@ -18,6 +18,7 @@ Write-Host ""
 if (-not (Test-Path ".git")) {
     Write-Host "Git repository not found. Initializing..." -ForegroundColor Yellow
     git init
+    git branch -M $Branch 2>$null
     git remote add origin $RepoUrl
 }
 else {
@@ -33,13 +34,26 @@ else {
     }
 }
 
+# Configure git to always merge on pull to avoid divergent branches error in newer git versions
+git config pull.rebase false 2>$null
+
+
 while ($true) {
     $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
     Write-Host "[$timestamp] Checking for updates..." -ForegroundColor Gray
     
-    # Fetch and pull changes from GitHub (auto update local)
+    # 1. First, check if there are local changes and commit them
+    $status = git status --porcelain
+    if ($status) {
+        Write-Host "[$timestamp] Local changes detected. Committing..." -ForegroundColor Yellow
+        git add .
+        git commit -m "Auto sync from local on $timestamp" | Out-Null
+    }
+
+    # 2. Fetch and pull changes from GitHub (auto update local)
     # Using --no-edit so git doesn't prompt for a merge commit message
-    $pullOutput = git pull origin $Branch --no-edit 2>&1
+    # Using --allow-unrelated-histories in case the repo was initialized locally and remotely independently
+    $pullOutput = git pull origin $Branch --no-edit --allow-unrelated-histories 2>&1
     
     if ($LASTEXITCODE -ne 0) {
         if ($pullOutput -match "conflict" -or $pullOutput -match "Automatic merge failed") {
@@ -54,20 +68,20 @@ while ($true) {
         }
     }
     
-    # Check if there are local changes
-    $status = git status --porcelain
-    if ($status) {
-        Write-Host "[$timestamp] Local changes detected. Syncing to GitHub..." -ForegroundColor Yellow
-        git add .
-        git commit -m "Auto sync from local on $timestamp"
-        $pushOutput = git push origin $Branch 2>&1
-        if ($LASTEXITCODE -eq 0) {
+    # 3. Push to GitHub
+    # This ensures both local commits and merge commits are pushed to the remote
+    $pushOutput = git push origin $Branch 2>&1
+    if ($LASTEXITCODE -eq 0) {
+        if ($pushOutput -match "Everything up-to-date") {
+            # Optionally suppress "Everything up-to-date" to reduce console spam
+            # Write-Host "[$timestamp] Everything up-to-date." -ForegroundColor Gray
+        } else {
             Write-Host "[$timestamp] Successfully synced to GitHub." -ForegroundColor Green
         }
-        else {
-            Write-Host "[$timestamp] Error pushing to GitHub." -ForegroundColor Red
-            Write-Host $pushOutput -ForegroundColor Red
-        }
+    }
+    else {
+        Write-Host "[$timestamp] Error pushing to GitHub." -ForegroundColor Red
+        Write-Host $pushOutput -ForegroundColor Red
     }
     
     Start-Sleep -Seconds $IntervalSeconds
